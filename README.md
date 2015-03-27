@@ -42,7 +42,7 @@ version of Node with `nodenv install`.
 Specify packages in `~/.nodenv/default-packages` by name, one per line. You may
 optionally specify a semver version spec after the name. For example:
 
-    grunt
+    grunt-cli
     jshint ~2.6.3
     csslint >= 0.9.0 < 0.10.0
 
