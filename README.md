@@ -1,28 +1,30 @@
-# rbenv-default-gems
+# nodenv-default-packages
 
-This rbenv plugin hooks into the `rbenv install` command to
-automatically install gems every time you install a new version of
-Ruby.
+This nodenv plugin hooks into the `nodenv install` command to automatically
+install `npm` packages every time you install a new version of Node. It
+requires the `node-build` plugin to be installed.
+
+Forked from the excellent [`rbenv-default-gems`][rbenv-default-gems] plugin from
+[sstephenson][sstephenson].
 
 ## Installation
 
-Make sure you have the latest rbenv and ruby-build versions, then run:
+Make sure you have the latest nodenv and node-build versions, then run:
 
-    git clone https://github.com/sstephenson/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems
+    git clone https://github.com/jawshooah/nodenv-default-packages.git ~/.nodenv/plugins/nodenv-default-packages
 
 ## Usage
 
-rbenv-default-gems automatically installs the gems listed in the
-`~/.rbenv/default-gems` file every time you successfully install a new
-version of Ruby with `rbenv install`.
+nodenv-default-packages automatically installs the packages listed in the
+`~/.nodenv/default-packages` file every time you successfully install a new
+version of Node with `nodenv install`.
 
-Specify gems in `~/.rbenv/default-gems` by name, one per line. You may
-optionally specify a version string after the name, or `--pre` to
-install a prerelease version. For example:
+Specify packages in `~/.nodenv/default-packages` by name, one per line. You may
+optionally specify a semver version spec after the name. For example:
 
-    bundler
-    bcat ~>0.6
-    rails --pre
+    grunt
+    jshint ~2.6.3
+    csslint >= 0.9.0 < 0.10.0
 
 Blank lines and lines beginning with a `#` are ignored.
 
@@ -30,7 +32,7 @@ Blank lines and lines beginning with a `#` are ignored.
 
 (The MIT License)
 
-Copyright (c) 2013 Sam Stephenson
+Copyright (c) 2015 Joshua Hagins
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -50,3 +52,6 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+[rbenv-default-gems]: https://github.com/sstephenson/rbenv-default-gems
+[sstephenson]: https://github.com/sstephenson
