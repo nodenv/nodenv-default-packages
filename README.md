@@ -13,7 +13,7 @@ Forked from the excellent [`rbenv-default-gems`][rbenv-default-gems] plugin from
 
 Make sure you have the latest nodenv and node-build versions, then run:
 
-    git clone https://github.com/jawshooah/nodenv-default-packages.git ~/.nodenv/plugins/nodenv-default-packages
+    git clone https://github.com/jawshooah/nodenv-default-packages.git $(nodenv root)/plugins/nodenv-default-packages
 
 ### Installing with Homebrew (for OS X users)
 
@@ -36,10 +36,10 @@ $ brew install --HEAD jawshooah/nodenv/nodenv-default-packages
 ## Usage
 
 nodenv-default-packages automatically installs the packages listed in the
-`~/.nodenv/default-packages` file every time you successfully install a new
+`$(nodenv root)/default-packages` file every time you successfully install a new
 version of Node with `nodenv install`.
 
-Specify packages in `~/.nodenv/default-packages` by name, one per line. You may
+Specify packages in `$(nodenv root)/default-packages` by name, one per line. You may
 optionally specify a semver version spec after the name. For example:
 
     grunt-cli
