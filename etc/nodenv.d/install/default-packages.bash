@@ -22,7 +22,7 @@ install_default_packages() {
       [ "${line[0]:0:1}" != "#" ] || continue
 
       package_name="${line[0]}"
-      package_version="${line[@]:1}"
+      package_version="${line[*]:1}"
 
       if [ -n "$package_version" ]; then
         package_spec="${package_name}@${package_version}"
