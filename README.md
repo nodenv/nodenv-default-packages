@@ -13,7 +13,7 @@ Forked from the excellent [`rbenv-default-gems`][rbenv-default-gems] plugin from
 
 Make sure you have the latest nodenv and node-build versions, then run:
 
-    git clone https://github.com/jawshooah/nodenv-default-packages.git $(nodenv root)/plugins/nodenv-default-packages
+    git clone https://github.com/nodenv/nodenv-default-packages.git $(nodenv root)/plugins/nodenv-default-packages
 
 ### Installing with Homebrew (for OS X users)
 
@@ -24,13 +24,13 @@ Mac OS X users can install nodenv-default-packages with the
  with Homebrew.*
 
 ```
-$ brew install jawshooah/nodenv/nodenv-default-packages
+$ brew install nodenv/nodenv/nodenv-default-packages
 ```
 
 Or, if you would like to install the latest development release:
 
 ```
-$ brew install --HEAD jawshooah/nodenv/nodenv-default-packages
+$ brew install --HEAD nodenv/nodenv/nodenv-default-packages
 ```
 
 ## Usage
