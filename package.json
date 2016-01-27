@@ -1,0 +1,32 @@
+{
+  "name": "nodenv-default-packages",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Install default packages every time you install a new version of Node",
+  "homepage": "https://github.com/nodenv/nodenv-default-packages#readme",
+  "license": "MIT",
+  "author": "Sam Stephenson <sstephenson@gmail.com> (http://sstephenson.us)",
+  "contributors": [
+    "Josh Hagins <hagins.josh@gmail.com>",
+    "Jason Karns <jason@karns.name> (http://jason.karns.name)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nodenv/nodenv-default-packages.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nodenv/nodenv-default-packages/issues"
+  },
+  "directories": {
+    "bin": "bin",
+    "lib": "libexec",
+    "test": "test"
+  },
+  "scripts": {
+    "publish:brew": "brew-publish $npm_package_name v$npm_package_version",
+    "postversion": "git push origin master v$npm_package_version && npm run publish:brew"
+  },
+  "devDependencies": {
+    "brew-publish": "git+https://github.com/jasonkarns/brew-publish.git#nodenv-tap"
+  }
+}
