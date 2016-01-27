@@ -7,7 +7,7 @@
   "license": "MIT",
   "author": "Sam Stephenson <sstephenson@gmail.com> (http://sstephenson.us)",
   "contributors": [
-    "Josh Hagins",
+    "Josh Hagins <hagins.josh@gmail.com>",
     "Jason Karns <jason@karns.name> (http://jason.karns.name)"
   ],
   "repository": {
@@ -16,6 +16,11 @@
   },
   "bugs": {
     "url": "https://github.com/nodenv/nodenv-default-packages/issues"
+  },
+  "directories": {
+    "bin": "bin",
+    "lib": "libexec",
+    "test": "test"
   },
   "scripts": {
     "publish:brew": "brew-publish $npm_package_name v$npm_package_version",
