@@ -48,6 +48,15 @@ optionally specify a semver version spec after the name. For example:
 
 Blank lines and lines beginning with a `#` are ignored.
 
+## Credits
+
+Forked from [Sam Stephenson][sstephenson]'s [rbenv-default-gems][] by [Josh Hagins][jawshooah] and modified for [nodenv][].
+
+[sstephenson]: https://github.com/sstephenson
+[rbenv-default-gems]: https://github.com/rbenv/rbenv-default-gems
+[jawshooah]: https://github.com/jawshooah
+[nodenv]: https://github.com/nodenv/nodenv
+
 ## License
 
 (The MIT License)
@@ -73,5 +82,3 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[rbenv-default-gems]: https://github.com/sstephenson/rbenv-default-gems
-[sstephenson]: https://github.com/sstephenson
