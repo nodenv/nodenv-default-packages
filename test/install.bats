@@ -15,6 +15,10 @@ export INSTALL_HOOK="${BATS_TEST_DIRNAME}/../etc/nodenv.d/install/default-packag
   assert_success
   assert_line 'Installed fake version 0.10.36'
   assert_line "Installed package 'fake-package'@latest"
+
+  unstub nodenv-version-name
+  unstub nodenv-which
+  unstub nodenv-hooks
 }
 
 @test "a failed nodenv-install exits gracefully" {
