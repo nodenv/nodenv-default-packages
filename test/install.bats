@@ -3,6 +3,7 @@
 load test_helper
 
 export INSTALL_HOOK="${BATS_TEST_DIRNAME}/../etc/nodenv.d/install/default-packages.bash"
+
 @test "running nodenv-install auto installs packages" {
   touch "${NODENV_ROOT}/default-packages"
   echo "fake-package" >> "${NODENV_ROOT}/default-packages"
@@ -21,7 +22,7 @@ export INSTALL_HOOK="${BATS_TEST_DIRNAME}/../etc/nodenv.d/install/default-packag
   unstub nodenv-hooks
 }
 
-@test "a failed nodenv-install exits gracefully" {
+@test "failed nodenv-install exits gracefully" {
   run nodenv-install fail 0.10.36
 
   assert_failure
