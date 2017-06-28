@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+#
+# Summary: Fake install program
+#
+# Usage: nodenv install version
+#
+
+set -e
+[ -n "$NODENV_DEBUG" ] && set -x
+
+# Define `before_install` and `after_install` functions that allow
+# plugin hooks to register a string of code for execution before or
+# after the installation process.
+declare -a after_hooks
+
+after_install() {
+  local hook="$1"
+  after_hooks["${#after_hooks[@]}"]="$hook"
+}
+
+if [ -n "$INSTALL_HOOK" ]
+then
+  echo Sourcing "$INSTALL_HOOK"
+  source "$INSTALL_HOOK"
+fi
+
+case "$1" in
+  *[0-9].*)
+    STATUS=0
+    VERSION_NAME=$1
+    d="$NODENV_ROOT/versions/$VERSION_NAME"
+    mkdir -p "$d"
+    mkdir -p "$d/bin"
+    echo "echo \"Installed package '\$3'@latest\"" >> "$d/bin/npm"
+    chmod a+x $d/bin/npm
+    echo "Installed fake version $VERSION_NAME"
+    echo "into $d directory"
+    ;;
+  fail)
+    STATUS=1
+    VERSION_NAME=$2
+    echo "Failed installation of $2"
+    ;;
+  *)
+    echo 'Usage: nodenv-install [fail] version'
+    exit 1
+    ;;
+esac
+
+echo Executing after_install hooks.
+for hook in "${after_hooks[@]}"; do eval "$hook"; done
+exit $STATUS

@@ -1,5 +1,7 @@
 # nodenv-default-packages
 
+[![Build Status](https://travis-ci.org/nodenv/nodenv-default-packages.svg)](https://travis-ci.org/nodenv/nodenv-default-packages)
+
 This nodenv plugin hooks into the `nodenv install` command to automatically
 install `npm` packages every time you install a new version of Node. It
 requires the `node-build` plugin to be installed.
