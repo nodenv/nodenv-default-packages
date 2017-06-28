@@ -9,7 +9,7 @@ load test_helper
 
   cd usr
 
-  assert [ -x etc/nodenv.d/install/default-packages.bash ]
+  assert [ -s etc/nodenv.d/install/default-packages.bash ]
 }
 
 @test "overwrites old installation" {
@@ -20,7 +20,7 @@ load test_helper
   PREFIX="$PWD" run "${BATS_TEST_DIRNAME}/../install.sh"
   assert_success ""
 
-  assert [ -x etc/nodenv.d/install/default-packages.bash ]
+  assert [ -s etc/nodenv.d/install/default-packages.bash ]
   run grep "install_default_packages" etc/nodenv.d/install/default-packages.bash
   assert_success
 }
