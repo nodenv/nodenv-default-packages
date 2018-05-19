@@ -11,6 +11,7 @@ export NODENV_ROOT="${NODENV_TEST_DIR}"
 
 PATH=/usr/bin:/bin:/usr/sbin:/sbin
 PATH="$BATS_TEST_DIRNAME/helpers/bin:$PATH"
+PATH="$BATS_TEST_DIRNAME/../bin:$PATH"
 PATH="$BATS_MOCK_BINDIR:$PATH"
 export PATH
 
