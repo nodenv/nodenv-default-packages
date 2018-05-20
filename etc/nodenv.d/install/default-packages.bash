@@ -10,7 +10,7 @@ install_default_packages() {
   [ "$STATUS" = "0" ] || return 0
 
   nodenv-default-packages install "$VERSION_NAME"
-  echo "Installed default packages for $VERISON_NAME"
+  echo "Installed default packages for $VERSION_NAME"
 
 }
 
