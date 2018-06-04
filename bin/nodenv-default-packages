@@ -11,9 +11,9 @@ set -e
 
 versions() {
   case "$1" in
-    "")    nodenv version-name    ;; # list active version
-    --all) nodenv versions --bare ;; # list all installed versions
-    *)     echo "$@"              ;; # list specified versions
+    "")    nodenv version-name                   ;; # list active version
+    --all) nodenv versions --skip-aliases --bare ;; # list all installed versions
+    *)     echo "$@"                             ;; # list specified versions
   esac
 }
 

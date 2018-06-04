@@ -4,14 +4,11 @@
 # Installs nodenv-default-packages under $PREFIX.
 
 set -e
-
-if [ -z "${PREFIX}" ]; then
-  PREFIX="/usr/local"
-fi
-
 set -u
 
 cd "$(dirname "$0")"
+
+PREFIX="${PREFIX:=/usr/local}"
 
 BIN_PATH="${PREFIX}/bin"
 ETC_PATH="${PREFIX}/etc/nodenv.d"
