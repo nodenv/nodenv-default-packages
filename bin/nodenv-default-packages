@@ -26,8 +26,30 @@ for_versions() {
   done
 }
 
+list_default_packages() {
+  [ -r "${NODENV_ROOT}/default-packages" ] || return 0
+
+  local line package_name package_version
+
+  # Read package names and versions from $NODENV_ROOT/default-packages.
+  while IFS=" " read -ra line; do
+
+    # Skip empty lines.
+    [ "${#line[@]}" -gt 0 ] || continue
+
+    # Skip comment lines that begin with `#`.
+    [ "${line[0]:0:1}" != "#" ] || continue
+
+    package_name="${line[0]}"
+    package_version="${line[*]:1}"
+
+    echo "${package_name}${package_version:+@$package_version}"
+
+  done < "${NODENV_ROOT}/default-packages"
+}
+
 install_default_packages() {
-  [ -r "${NODENV_ROOT}/default-packages" ] || return
+  [ -r "${NODENV_ROOT}/default-packages" ] || return 0
 
   local line package_name package_version package_spec
 
@@ -64,16 +86,11 @@ case "$1" in
   --complete )
     echo install
     echo --all
-    exit
-    ;;
-  install )
-    cmd="$1"
-    shift
-    ;;
-  *)
-    nodenv help --usage default-packages 
-    exit 1
-    ;;
+    exit ;;
+
+  install | list ) cmd="$1"; shift ;;
+
+  *) nodenv-help --usage default-packages; exit 1 ;;
 esac
 
 for_versions "${cmd}_default_packages" "$@"
