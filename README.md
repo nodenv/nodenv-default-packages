@@ -50,6 +50,16 @@ optionally specify a semver version spec after the name. For example:
 
 Blank lines and lines beginning with a `#` are ignored.
 
+## Updating Default Packages
+
+if you update your `$(nodenv root)/default-packages` and want to refresh some or all of
+your existing node installations you can use commands like this:
+
+    nodenv default-packages install 8.8.1   # Reinstall default packages on Node version 8.8.1
+    nodenv default-packages install --all   # Reinstall default packages on _all_ installed Node versions
+
+*NOTE:* This may take some time.
+
 ## Credits
 
 Forked from [Sam Stephenson][sstephenson]'s [rbenv-default-gems][] by [Josh Hagins][jawshooah] and modified for [nodenv][].
