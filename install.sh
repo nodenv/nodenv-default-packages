@@ -8,7 +8,7 @@ set -u
 
 cd "$(dirname "$0")"
 
-PREFIX="${PREFIX:=/usr/local}"
+: "${PREFIX:=/usr/local}"
 
 BIN_PATH="${PREFIX}/bin"
 ETC_PATH="${PREFIX}/etc/nodenv.d"
