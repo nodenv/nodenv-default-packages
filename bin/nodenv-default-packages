@@ -27,34 +27,34 @@ for_versions() {
 }
 
 install_default_packages() {
-  if [ -f "${NODENV_ROOT}/default-packages" ]; then
-    local line package_name package_version package_spec
+  [ -r "${NODENV_ROOT}/default-packages" ] || return
 
-    # Read package names and versions from $NODENV_ROOT/default-packages.
-    while IFS=" " read -r -a line; do
+  local line package_name package_version package_spec
 
-      # Skip empty lines.
-      [ "${#line[@]}" -gt 0 ] || continue
+  # Read package names and versions from $NODENV_ROOT/default-packages.
+  while IFS=" " read -ra line; do
 
-      # Skip comment lines that begin with `#`.
-      [ "${line[0]:0:1}" != "#" ] || continue
+    # Skip empty lines.
+    [ "${#line[@]}" -gt 0 ] || continue
 
-      package_name="${line[0]}"
-      package_version="${line[*]:1}"
+    # Skip comment lines that begin with `#`.
+    [ "${line[0]:0:1}" != "#" ] || continue
 
-      if [ -n "$package_version" ]; then
-        package_spec="${package_name}@${package_version}"
-      else
-        package_spec="$package_name"
-      fi
+    package_name="${line[0]}"
+    package_version="${line[*]:1}"
 
-      # Invoke `npm install -g` in the just-installed Node.
-      NODENV_VERSION="$VERSION_NAME" nodenv-exec npm install -g "$package_spec" || {
-        echo "nodenv: error installing package \`$package_name'"
-      } >&2
+    if [ -n "$package_version" ]; then
+      package_spec="${package_name}@${package_version}"
+    else
+      package_spec="$package_name"
+    fi
 
-    done < "${NODENV_ROOT}/default-packages"
-  fi
+    # Invoke `npm install -g` in the just-installed Node.
+    NODENV_VERSION="$VERSION_NAME" nodenv-exec npm install -g "$package_spec" || {
+    echo "nodenv: error installing package \`$package_name'"
+  } >&2
+
+done < "${NODENV_ROOT}/default-packages"
 }
 
 unset cmd
