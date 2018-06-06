@@ -9,6 +9,14 @@
 set -e
 [ -n "$NODENV_DEBUG" ] && set -x
 
+# Provide nodenv completions
+if [ "$1" = --complete ]; then
+  echo install
+  echo list
+  echo --all
+  exit
+fi
+
 versions() {
   case "$1" in
     "")    nodenv-version-name                   ;; # list active version
@@ -82,12 +90,6 @@ done < "${NODENV_ROOT}/default-packages"
 unset cmd
 
 case "$1" in
-# Provide nodenv completions
-  --complete )
-    echo install
-    echo --all
-    exit ;;
-
   install | list ) cmd="$1"; shift ;;
 
   *) nodenv-help --usage default-packages; exit 1 ;;
