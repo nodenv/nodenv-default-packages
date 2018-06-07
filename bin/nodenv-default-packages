@@ -59,16 +59,21 @@ list_default_packages() {
 npm_install() {
   local package=$1
 
-  # Invoke `npm install -g` in the just-installed Node.
-  if ! NODENV_VERSION="$VERSION_NAME" nodenv-exec npm install -g "$package"; then
-    echo "nodenv: error installing package \`$package'" >&2
-  fi
+  NODENV_VERSION="$VERSION_NAME" nodenv-exec npm install -g "$package"
 }
 
 install_default_packages() {
   local package
 
-  list_default_packages | while read -r package; do npm_install "$package"; done
+  list_default_packages |
+  {
+    local error
+    while read -r package; do
+      npm_install "$package" || error=true
+    done
+
+    [ -z "$error" ] || exit 1
+  }
 }
 
 unset cmd
