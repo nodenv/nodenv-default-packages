@@ -34,26 +34,18 @@ for_versions() {
   done
 }
 
+# Read package names and versions from $NODENV_ROOT/default-packages
 list_default_packages() {
   [ -r "${NODENV_ROOT}/default-packages" ] || return 0
 
-  local line package_name package_version
+  local pkg_name pkg_version
 
-  # Read package names and versions from $NODENV_ROOT/default-packages.
-  while IFS=" " read -ra line; do
+  # strip comments and empty lines
+  sed -e 's/#.*$//g' -e '/^[[:space:]]*$/d' "${NODENV_ROOT}/default-packages" |
 
-    # Skip empty lines.
-    [ "${#line[@]}" -gt 0 ] || continue
-
-    # Skip comment lines that begin with `#`.
-    [ "${line[0]:0:1}" != "#" ] || continue
-
-    package_name="${line[0]}"
-    package_version="${line[*]:1}"
-
-    echo "${package_name}${package_version:+@$package_version}"
-
-  done < "${NODENV_ROOT}/default-packages"
+  while IFS=" " read -r pkg_name pkg_version; do
+    echo "${pkg_name}${pkg_version:+@$pkg_version}"
+  done
 }
 
 npm_install() {
