@@ -9,10 +9,18 @@
 set -e
 [ -n "$NODENV_DEBUG" ] && set -x
 
+# Provide nodenv completions
+if [ "$1" = --complete ]; then
+  echo install
+  echo list
+  echo --all
+  exit
+fi
+
 versions() {
   case "$1" in
-    "")    nodenv version-name                   ;; # list active version
-    --all) nodenv versions --skip-aliases --bare ;; # list all installed versions
+    "")    nodenv-version-name                   ;; # list active version
+    --all) nodenv-versions --skip-aliases --bare ;; # list all installed versions
     *)     echo "$@"                             ;; # list specified versions
   esac
 }
@@ -22,58 +30,50 @@ for_versions() {
   shift
 
   for v in $(versions "$@"); do
-    eval "$cmd" "$(nodenv prefix "$v")"
+    eval "$cmd" "$(nodenv-prefix "$v")"
   done
 }
 
+# Read package names and versions from $NODENV_ROOT/default-packages
+list_default_packages() {
+  [ -r "${NODENV_ROOT}/default-packages" ] || return 0
+
+  local pkg_name pkg_version
+
+  # strip comments and empty lines
+  sed -e 's/#.*$//g' -e '/^[[:space:]]*$/d' "${NODENV_ROOT}/default-packages" |
+
+  while IFS=" " read -r pkg_name pkg_version; do
+    echo "${pkg_name}${pkg_version:+@$pkg_version}"
+  done
+}
+
+npm_install() {
+  local package=$1
+
+  NODENV_VERSION="$VERSION_NAME" nodenv-exec npm install -g "$package"
+}
+
 install_default_packages() {
-  if [ -f "${NODENV_ROOT}/default-packages" ]; then
-    local line package_name package_version package_spec
+  local package
 
-    # Read package names and versions from $NODENV_ROOT/default-packages.
-    while IFS=" " read -r -a line; do
+  list_default_packages |
+  {
+    local error
+    while read -r package; do
+      npm_install "$package" || error=true
+    done
 
-      # Skip empty lines.
-      [ "${#line[@]}" -gt 0 ] || continue
-
-      # Skip comment lines that begin with `#`.
-      [ "${line[0]:0:1}" != "#" ] || continue
-
-      package_name="${line[0]}"
-      package_version="${line[*]:1}"
-
-      if [ -n "$package_version" ]; then
-        package_spec="${package_name}@${package_version}"
-      else
-        package_spec="$package_name"
-      fi
-
-      # Invoke `npm install -g` in the just-installed Node.
-      NODENV_VERSION="$VERSION_NAME" nodenv-exec npm install -g "$package_spec" || {
-        echo "nodenv: error installing package \`$package_name'"
-      } >&2
-
-    done < "${NODENV_ROOT}/default-packages"
-  fi
+    [ -z "$error" ] || exit 1
+  }
 }
 
 unset cmd
 
 case "$1" in
-# Provide nodenv completions
-  --complete )
-    echo install
-    echo --all
-    exit
-    ;;
-  install )
-    cmd="$1"
-    shift
-    ;;
-  *)
-    nodenv help --usage default-packages 
-    exit 1
-    ;;
+  install | list ) cmd="$1"; shift ;;
+
+  *) nodenv-help --usage default-packages; exit 1 ;;
 esac
 
 for_versions "${cmd}_default_packages" "$@"
