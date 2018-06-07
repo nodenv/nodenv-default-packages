@@ -56,15 +56,19 @@ list_default_packages() {
   done < "${NODENV_ROOT}/default-packages"
 }
 
+npm_install() {
+  local package=$1
+
+  # Invoke `npm install -g` in the just-installed Node.
+  if ! NODENV_VERSION="$VERSION_NAME" nodenv-exec npm install -g "$package"; then
+    echo "nodenv: error installing package \`$package'" >&2
+  fi
+}
+
 install_default_packages() {
   local package
 
-  list_default_packages | while read -r package; do
-    # Invoke `npm install -g` in the just-installed Node.
-    NODENV_VERSION="$VERSION_NAME" nodenv-exec npm install -g "$package" || {
-      echo "nodenv: error installing package \`$package'"
-    } >&2
-  done
+  list_default_packages | while read -r package; do npm_install "$package"; done
 }
 
 unset cmd
