@@ -30,7 +30,7 @@ for_versions() {
   shift
 
   for v in $(versions "$@"); do
-    eval "$cmd" "$(nodenv-prefix "$v")"
+    eval "$cmd" "${v}"
   done
 }
 
@@ -49,19 +49,23 @@ list_default_packages() {
 }
 
 npm_install() {
-  local package=$1
+  local node_version=$1
+  local package=$2
 
-  NODENV_VERSION="$VERSION_NAME" nodenv-exec npm install -g "$package"
+  NODENV_VERSION="$node_version" nodenv-exec npm install -g "$package"
 }
 
 install_default_packages() {
+  local node_version="$1"
+  shift
+
   local package
 
   list_default_packages |
   {
     local error
     while read -r package; do
-      npm_install "$package" || error=true
+      npm_install "$node_version" "$package" || error=true
     done
 
     [ -z "$error" ] || exit 1
