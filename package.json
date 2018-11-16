@@ -22,6 +22,7 @@
     "test": "test"
   },
   "scripts": {
+    "start": "bin/nodenv-default-packages",
     "test": "bats ${CI:+--tap} test",
     "posttest": "npm run lint",
     "lint": "shellcheck $(git ls-files | grep -E -e '^bin/' -e '\\.sh$' -e '\\.bash$')",
