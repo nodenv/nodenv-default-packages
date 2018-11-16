@@ -21,6 +21,10 @@
     "lib": "libexec",
     "test": "test"
   },
+  "files": [
+    "bin",
+    "etc"
+  ],
   "scripts": {
     "start": "bin/nodenv-default-packages",
     "test": "bats ${CI:+--tap} test",
