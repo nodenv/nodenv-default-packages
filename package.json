@@ -25,9 +25,11 @@
     "start": "bin/nodenv-default-packages",
     "test": "bats ${CI:+--tap} test",
     "posttest": "npm run lint",
-    "lint": "shellcheck $(git ls-files | grep -E -e '^bin/' -e '\\.sh$' -e '\\.bash$')",
-    "publish:brew": "brew-publish $npm_package_name v$npm_package_version",
-    "postversion": "git push --follow-tags && npm run publish:brew"
+    "lint": "git ls-files bin etc **/*.*sh | xargs shellcheck",
+    "postversion": "npm publish",
+    "prepublishOnly": "npm run publish:github && npm run publish:brew",
+    "publish:brew": "brew-publish",
+    "publish:github": "git push --follow-tags"
   },
   "devDependencies": {
     "bats": "^0.4.2",
