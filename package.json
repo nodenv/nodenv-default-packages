@@ -1,14 +1,13 @@
 {
-  "name": "nodenv-default-packages",
+  "name": "@nodenv/nodenv-default-packages",
   "version": "0.2.1",
-  "private": true,
   "description": "Install default packages every time you install a new version of Node",
   "homepage": "https://github.com/nodenv/nodenv-default-packages#readme",
   "license": "MIT",
-  "author": "Sam Stephenson <sstephenson@gmail.com> (http://sstephenson.us)",
   "contributors": [
+    "Jason Karns <jason@karns.name> (http://jason.karns.name)",
     "Josh Hagins <hagins.josh@gmail.com>",
-    "Jason Karns <jason@karns.name> (http://jason.karns.name)"
+    "Sam Stephenson <sstephenson@gmail.com> (http://sstephenson.us)"
   ],
   "repository": {
     "type": "git",
@@ -22,12 +21,19 @@
     "lib": "libexec",
     "test": "test"
   },
+  "files": [
+    "bin",
+    "etc"
+  ],
   "scripts": {
+    "start": "bin/nodenv-default-packages",
     "test": "bats ${CI:+--tap} test",
     "posttest": "npm run lint",
-    "lint": "shellcheck $(git ls-files | grep -E -e '^bin/' -e '\\.sh$' -e '\\.bash$')",
-    "publish:brew": "brew-publish $npm_package_name v$npm_package_version",
-    "postversion": "git push --follow-tags && npm run publish:brew"
+    "lint": "git ls-files bin etc **/*.*sh | xargs shellcheck",
+    "postversion": "npm publish",
+    "prepublishOnly": "npm run publish:github && npm run publish:brew",
+    "publish:brew": "brew-publish",
+    "publish:github": "git push --follow-tags"
   },
   "devDependencies": {
     "bats": "^0.4.2",
