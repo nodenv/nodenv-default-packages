@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 BATS_TMPDIR="$BATS_TEST_DIRNAME/tmp"
-load ../node_modules/bats-assert/all
+load ../node_modules/bats-assert/load
+load ../node_modules/bats-support/load
 load ../node_modules/bats-mock/stub
 
 NODENV_TEST_DIR="${BATS_TMPDIR}/nodenv"
