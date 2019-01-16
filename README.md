@@ -9,6 +9,8 @@ requires the `node-build` plugin to be installed.
 Forked from the excellent [`rbenv-default-gems`][rbenv-default-gems] plugin from
 [sstephenson][sstephenson].
 
+<!-- toc -->
+
 ## Installation
 
 ### Installing as a nodenv plugin
