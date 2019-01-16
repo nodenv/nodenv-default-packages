@@ -61,7 +61,7 @@ optionally specify a semver version spec after the name. For example:
 
 Blank lines and lines beginning with a `#` are ignored.
 
-## Updating Default Packages
+### Updating Default Packages
 
 if you update your `$(nodenv root)/default-packages` and want to refresh some or all of
 your existing node installations you can use commands like this:
