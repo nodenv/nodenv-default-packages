@@ -9,6 +9,17 @@ requires the `node-build` plugin to be installed.
 Forked from the excellent [`rbenv-default-gems`][rbenv-default-gems] plugin from
 [sstephenson][sstephenson].
 
+<!-- toc -->
+
+- [Installation](#installation)
+  * [Installing as a nodenv plugin](#installing-as-a-nodenv-plugin)
+  * [Installing with Homebrew (for OS X users)](#installing-with-homebrew-for-os-x-users)
+- [Usage](#usage)
+  * [Updating Default Packages](#updating-default-packages)
+- [Credits](#credits)
+
+<!-- tocstop -->
+
 ## Installation
 
 ### Installing as a nodenv plugin
@@ -50,7 +61,7 @@ optionally specify a semver version spec after the name. For example:
 
 Blank lines and lines beginning with a `#` are ignored.
 
-## Updating Default Packages
+### Updating Default Packages
 
 if you update your `$(nodenv root)/default-packages` and want to refresh some or all of
 your existing node installations you can use commands like this:
