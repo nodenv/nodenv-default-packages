@@ -77,6 +77,8 @@ unset cmd
 case "$1" in
   install | list ) cmd="$1"; shift ;;
 
+  -h | --help ) nodenv-help; exit ;;
+
   *) nodenv-help --usage default-packages; exit 1 ;;
 esac
 
