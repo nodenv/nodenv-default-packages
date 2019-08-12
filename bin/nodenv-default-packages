@@ -78,11 +78,11 @@ install_default_packages() {
 unset cmd
 
 case "$1" in
-  install | list ) cmd="$1"; shift ;;
+  install ) for_versions install_default_packages "${@:2}" ;;
+
+  list ) list_default_packages ;;
 
   -h | --help ) nodenv-help; exit ;;
 
   *) nodenv-help --usage default-packages; exit 1 ;;
 esac
-
-for_versions "${cmd}_default_packages" "$@"
