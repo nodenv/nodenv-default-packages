@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 if declare -Ff after_install >/dev/null; then
   after_install install_default_packages
 else
@@ -12,5 +10,4 @@ install_default_packages() {
 
   nodenv-default-packages install "$VERSION_NAME"
   echo "Installed default packages for $VERSION_NAME"
-
 }
