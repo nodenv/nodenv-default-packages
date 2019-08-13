@@ -18,11 +18,10 @@ after_install() {
   after_hooks["${#after_hooks[@]}"]="$hook"
 }
 
-if [ -n "$INSTALL_HOOK" ]
-then
-  echo Sourcing "$INSTALL_HOOK"
-  source "$INSTALL_HOOK"
-fi
+while IFS='' read -r hook; do
+  echo Sourcing "$hook"
+  source "$hook"
+done < <(nodenv-hooks install)
 
 case "$1" in
   *[0-9].*)

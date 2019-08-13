@@ -2,16 +2,20 @@
 
 load test_helper
 
-export INSTALL_HOOK="${BATS_TEST_DIRNAME}/../etc/nodenv.d/install/default-packages.bash"
-
 @test "running nodenv-install auto installs packages" {
   with_default_packages_file <<< fake-package
 
   run nodenv install 0.10.36
 
   assert_success
-  assert_line 'Installed fake version 0.10.36'
-  assert_line "Installed package 'fake-package'@latest"
+  assert_output -e - <<-OUT
+Sourcing .*/etc/nodenv.d/install/default-packages.bash
+Installed fake version 0.10.36
+into $NODENV_ROOT/versions/0.10.36 directory
+Executing after_install hooks.
+Installed package 'fake-package'@latest
+Installed default packages for 0.10.36
+OUT
 }
 
 @test "failed nodenv-install exits gracefully" {

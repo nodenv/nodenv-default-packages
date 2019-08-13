@@ -25,8 +25,10 @@ setup() {
   # custom setup
 
   mkdir -p "$BATS_TMPDIR"
-  NODENV_ROOT=$(mktemp -d "${BATS_TMPDIR}/nodenv_root.XXX") || exit 1
+  NODENV_ROOT=$(mktemp -d "$BATS_TMPDIR/nodenv_root.XXX") || exit 1
   export NODENV_ROOT
+
+  export NODENV_HOOK_PATH="$BATS_TEST_DIRNAME/../etc/nodenv.d"
 }
 
 teardown() {
@@ -34,6 +36,6 @@ teardown() {
 }
 
 with_default_packages_file() {
-  touch "${NODENV_ROOT}/default-packages"
-  cat - >> "${NODENV_ROOT}/default-packages"
+  touch "$NODENV_ROOT/default-packages"
+  cat - >> "$NODENV_ROOT/default-packages"
 }
