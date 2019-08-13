@@ -26,15 +26,14 @@ setup() {
 
 
   # custom setup
-  NODENV_TEST_DIR="${BATS_TMPDIR}/nodenv"
-  mkdir -p "${NODENV_TEST_DIR}"
 
-  export NODENV_ROOT="${NODENV_TEST_DIR}"
+  mkdir -p "$BATS_TMPDIR"
+  NODENV_ROOT=$(mktemp -d "${BATS_TMPDIR}/nodenv_root.XXX") || exit 1
+  export NODENV_ROOT
 }
 
 teardown() {
-  rm -rf "$NODENV_TEST_DIR"
-  rm -rf "$BATS_MOCK_TMPDIR"
+  rm -rf "$BATS_TMPDIR" # same as BATS_MOCK_TMPDIR
 }
 
 with_default_packages_file() {
