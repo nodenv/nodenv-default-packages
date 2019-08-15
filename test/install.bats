@@ -5,12 +5,13 @@ load test_helper
 export INSTALL_HOOK="${BATS_TEST_DIRNAME}/../etc/nodenv.d/install/default-packages.bash"
 
 @test "running nodenv-install auto installs packages" {
-  touch "${NODENV_ROOT}/default-packages"
-  echo "fake-package" >> "${NODENV_ROOT}/default-packages"
+  with_default_packages_file <<< fake-package
+
   stub nodenv-prefix '0.10.36 : echo "$NODENV_ROOT/versions/0.10.36"'
   stub nodenv-version-name 'echo 0.10.36'
   stub nodenv-which 'npm : echo "${NODENV_ROOT}/versions/0.10.36/bin/npm"'
   stub nodenv-hooks 'exec : echo ""'
+
   run nodenv-install 0.10.36
 
   assert_success

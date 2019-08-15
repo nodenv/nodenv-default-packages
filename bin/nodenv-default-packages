@@ -2,9 +2,12 @@
 #
 # Summary: Refresh default packages on all installed node versions
 #
-# Usage: nodenv default-packages install [ --all | <version>...]
-#
 # Install default packages on a specific version or all installed versions.
+#
+# Usage:
+#   nodenv default-packages list
+#   nodenv default-packages install [ --all | <version>...]
+#
 
 set -e
 [ -n "$NODENV_DEBUG" ] && set -x
@@ -26,7 +29,7 @@ versions() {
 }
 
 for_versions() {
-  cmd="$1"
+  local cmd="$1"
   shift
 
   for v in $(versions "$@"); do
@@ -75,9 +78,11 @@ install_default_packages() {
 unset cmd
 
 case "$1" in
-  install | list ) cmd="$1"; shift ;;
+  install ) for_versions install_default_packages "${@:2}" ;;
+
+  list ) list_default_packages ;;
+
+  -h | --help ) nodenv-help; exit ;;
 
   *) nodenv-help --usage default-packages; exit 1 ;;
 esac
-
-for_versions "${cmd}_default_packages" "$@"

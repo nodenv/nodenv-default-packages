@@ -20,3 +20,8 @@ teardown() {
   rm -rf "$NODENV_TEST_DIR"
   rm -rf "$BATS_MOCK_TMPDIR"
 }
+
+with_default_packages_file() {
+  touch "${NODENV_ROOT}/default-packages"
+  cat - >> "${NODENV_ROOT}/default-packages"
+}
