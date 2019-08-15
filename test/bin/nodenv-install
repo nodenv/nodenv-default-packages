@@ -18,11 +18,11 @@ after_install() {
   after_hooks["${#after_hooks[@]}"]="$hook"
 }
 
-if [ -n "$INSTALL_HOOK" ]
-then
-  echo Sourcing "$INSTALL_HOOK"
-  source "$INSTALL_HOOK"
-fi
+while IFS='' read -r hook; do
+  echo Sourcing "$hook"
+  # shellcheck source=../../etc/nodenv.d/install/default-packages.bash
+  source "$hook"
+done < <(nodenv-hooks install)
 
 case "$1" in
   *[0-9].*)
@@ -32,7 +32,7 @@ case "$1" in
     mkdir -p "$d"
     mkdir -p "$d/bin"
     echo "echo \"Installed package '\$3'@latest\"" >> "$d/bin/npm"
-    chmod a+x $d/bin/npm
+    chmod a+x "$d/bin/npm"
     echo "Installed fake version $VERSION_NAME"
     echo "into $d directory"
     ;;
