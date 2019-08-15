@@ -25,8 +25,9 @@ setup() {
   # custom setup
 
   mkdir -p "$BATS_TMPDIR"
-  NODENV_ROOT=$(mktemp -d "$BATS_TMPDIR/nodenv_root.XXX") || exit 1
-  export NODENV_ROOT
+  testdir=$(mktemp -d "$BATS_TMPDIR/$BATS_TEST_NAME.XXX") || exit 1
+  export NODENV_ROOT=$testdir/nodenv_root
+  mkdir -p "$NODENV_ROOT"
 
   export NODENV_HOOK_PATH="$BATS_TEST_DIRNAME/../etc/nodenv.d"
 }

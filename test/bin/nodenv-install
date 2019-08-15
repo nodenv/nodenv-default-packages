@@ -2,7 +2,7 @@
 #
 # Summary: Fake install program
 #
-# Usage: nodenv install version
+# Usage: nodenv install [--fail] version
 #
 
 set -e
@@ -29,14 +29,12 @@ case "$1" in
     STATUS=0
     VERSION_NAME=$1
     d="$NODENV_ROOT/versions/$VERSION_NAME"
-    mkdir -p "$d"
     mkdir -p "$d/bin"
-    echo "echo \"Installed package '\$3'@latest\"" >> "$d/bin/npm"
+    echo "echo \"npm invoked with: '\$@'\"" > "$d/bin/npm"
     chmod a+x "$d/bin/npm"
-    echo "Installed fake version $VERSION_NAME"
-    echo "into $d directory"
+    echo "Installed fake version $VERSION_NAME into $d"
     ;;
-  fail)
+  --fail)
     STATUS=1
     VERSION_NAME=$2
     echo "Failed installation of $2"
