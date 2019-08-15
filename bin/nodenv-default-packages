@@ -39,7 +39,10 @@ for_versions() {
 
 # Read package names and versions from $NODENV_ROOT/default-packages
 list_default_packages() {
-  [ -r "${NODENV_ROOT}/default-packages" ] || return 0
+  [ -r "${NODENV_ROOT}/default-packages" ] || {
+    echo "No default-package file found" >&2
+    exit 1
+  }
 
   local pkg_name pkg_version
 
