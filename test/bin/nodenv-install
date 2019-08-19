@@ -32,7 +32,7 @@ case "$1" in
     mkdir -p "$d/bin"
     echo "echo \"npm invoked with: '\$@'\"" > "$d/bin/npm"
     chmod a+x "$d/bin/npm"
-    echo "Installed fake version $VERSION_NAME into $d"
+    echo "Installed fake node into $d"
     ;;
   --fail)
     STATUS=1
