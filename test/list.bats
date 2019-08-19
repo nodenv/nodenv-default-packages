@@ -3,7 +3,7 @@
 load test_helper
 
 @test "list, without file, exits with error" {
-  run nodenv-default-packages list
+  run nodenv default-packages list
 
   assert_failure
   refute_output "No default-packages file found"
@@ -12,7 +12,7 @@ load test_helper
 @test "list default-packages" {
   with_default_packages_file <<< fake-package
 
-  run nodenv-default-packages list
+  run nodenv default-packages list
 
   assert_success
   assert_output "fake-package"
@@ -27,7 +27,7 @@ load test_helper
   another-package
 PKGS
 
-  run nodenv-default-packages list
+  run nodenv default-packages list
 
   assert_success
   assert_output - <<-OUT

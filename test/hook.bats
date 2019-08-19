@@ -10,7 +10,7 @@ load test_helper
   assert_success
   assert_output -e - <<-OUT
 Sourcing .*/etc/nodenv.d/install/default-packages.bash
-Installed fake version 0.10.36 into $NODENV_ROOT/versions/0.10.36
+Installed fake node into $NODENV_ROOT/versions/0.10.36
 Executing after_install hooks.
 npm invoked with: 'install -g fake-package'
 Installed default packages for 0.10.36

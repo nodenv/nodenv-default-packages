@@ -9,7 +9,7 @@
 #   nodenv default-packages install [ --all | <version>...]
 #
 
-set -e
+set -eo pipefail
 [ -n "$NODENV_DEBUG" ] && set -x
 
 # Provide nodenv completions
