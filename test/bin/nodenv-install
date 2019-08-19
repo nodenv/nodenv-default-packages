@@ -2,7 +2,7 @@
 #
 # Summary: Fake install program
 #
-# Usage: nodenv install [--fail] version
+# Usage: nodenv install [--fail|--no-hooks] version
 #
 
 set -e
@@ -18,11 +18,16 @@ after_install() {
   after_hooks["${#after_hooks[@]}"]="$hook"
 }
 
-while IFS='' read -r hook; do
-  echo Sourcing "$hook"
-  # shellcheck source=../../etc/nodenv.d/install/default-packages.bash
-  source "$hook"
-done < <(nodenv-hooks install)
+if [ "$1" == --no-hooks ]; then
+  skip_hooks=1
+  shift
+else
+  while IFS='' read -r hook; do
+    echo Sourcing "$hook"
+    # shellcheck source=../../etc/nodenv.d/install/default-packages.bash
+    source "$hook"
+  done < <(nodenv-hooks install)
+fi
 
 case "$1" in
   *[0-9].*)
@@ -40,11 +45,14 @@ case "$1" in
     echo "Failed installation of $2"
     ;;
   *)
-    echo 'Usage: nodenv-install [fail] version'
+    nodenv-help --usage install >&2
     exit 1
     ;;
 esac
 
-echo Executing after_install hooks.
-for hook in "${after_hooks[@]}"; do eval "$hook"; done
+if [ -z "$skip_hooks" ]; then
+  echo Executing after_install hooks.
+  for hook in "${after_hooks[@]}"; do eval "$hook"; done
+fi
+
 exit $STATUS
