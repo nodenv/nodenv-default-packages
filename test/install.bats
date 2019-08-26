@@ -6,7 +6,7 @@ load test_helper
   run nodenv default-packages install 1.2.3
 
   assert_failure
-  refute_output "No default-packages file found"
+  assert_output "default-packages file not found"
 }
 
 @test "install, without a version, installs to current node version" {
