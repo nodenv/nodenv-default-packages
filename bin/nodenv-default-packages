@@ -86,7 +86,7 @@ default_packages_file() {
     fi
   done
 
-  echo "default-packages file not found" >&2
+  echo "nodenv: default-packages file not found" >&2
   return 1
 }
 

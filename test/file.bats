@@ -6,7 +6,7 @@ load test_helper
   run nodenv default-packages file
 
   assert_failure
-  assert_output "default-packages file not found"
+  assert_output "nodenv: default-packages file not found"
 }
 
 @test "file finds default-packages in NODENV_ROOT" {
