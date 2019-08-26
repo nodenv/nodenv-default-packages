@@ -7,6 +7,7 @@
 # Usage:
 #   nodenv default-packages list
 #   nodenv default-packages install [ --all | <version>...]
+#   nodenv default-packages file
 #
 
 set -eo pipefail
@@ -78,6 +79,19 @@ install_default_packages() {
   }
 }
 
+default_packages_file() {
+  IFS=: read -ra xdg_dirs <<< "${XDG_CONFIG_HOME:-$HOME/.config}:${XDG_CONFIG_DIRS:-/etc/xdg}"
+
+  for dir in "$NODENV_ROOT" "${xdg_dirs[@]/%//nodenv}"; do
+    if test -r "$dir/default-packages"; then
+      echo "$_" && return
+    fi
+  done
+
+  echo "default-packages file not found" >&2
+  return 1
+}
+
 unset cmd
 
 case "$1" in
@@ -85,7 +99,9 @@ case "$1" in
 
   list ) list_default_packages ;;
 
-  -h | --help ) nodenv-help; exit ;;
+  file ) default_packages_file ;;
+
+  -h | --help ) nodenv-help ;;
 
   *) nodenv-help --usage default-packages; exit 1 ;;
 esac
