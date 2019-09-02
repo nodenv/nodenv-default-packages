@@ -78,16 +78,20 @@ install_default_packages() {
 }
 
 default_packages_file() {
+  local file_found
+
   IFS=: read -ra xdg_dirs <<< "${XDG_CONFIG_HOME:-$HOME/.config}:${XDG_CONFIG_DIRS:-/etc/xdg}"
 
   for dir in "$NODENV_ROOT" "${xdg_dirs[@]/%//nodenv}"; do
     if test -r "$dir/default-packages"; then
-      echo "$_" && return
+      echo "$_" && file_found=1
     fi
   done
 
-  echo "nodenv: default-packages file not found" >&2
-  return 1
+  if [ -z "${file_found:-}" ]; then
+    echo "nodenv: default-packages file not found" >&2
+    return 1
+  fi
 }
 
 unset cmd
