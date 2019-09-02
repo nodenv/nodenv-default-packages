@@ -43,9 +43,7 @@ for_versions() {
 list_default_packages() {
   local -a files
   while read -r; do files+=( "$REPLY" ); done < <(default_packages_files)
-
   [ ${#files[@]} -gt 0 ] || return
-
 
   local pkg_name pkg_version
 

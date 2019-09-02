@@ -54,3 +54,15 @@ load test_helper
   assert_output -p "npm invoked with: 'install -g pkg-from-config-dirs1'"
   assert_output -p "npm invoked with: 'install -g pkg-from-config-dirs2'"
 }
+
+@test "install handles filenames with spaces" {
+  nodenv install --no-hooks 10.0.0
+  with_file "$HOME/my config/nodenv/default-packages" <<< pkg-from-config-dirs1
+  with_file "$HOME/their config/nodenv/default-packages" <<< pkg-from-config-dirs2
+
+  XDG_CONFIG_DIRS="$HOME/my config:$HOME/their config" NODENV_VERSION=10.0.0 run nodenv default-packages install
+
+  assert_success
+  assert_output -p "npm invoked with: 'install -g pkg-from-config-dirs1'"
+  assert_output -p "npm invoked with: 'install -g pkg-from-config-dirs2'"
+}
