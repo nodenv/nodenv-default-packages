@@ -16,7 +16,7 @@ load test_helper
   NODENV_VERSION=10.0.0 run nodenv default-packages install
 
   assert_success
-  assert_output -p "npm invoked with: 'install -g fake-package'"
+  assert_output -p "npm invoked with: install -g fake-package"
 }
 
 @test "install accepts node version to which to install" {
@@ -26,7 +26,7 @@ load test_helper
   run nodenv default-packages install 10.0.0
 
   assert_success
-  assert_output -p "npm invoked with: 'install -g fake-package'"
+  assert_output -p "npm invoked with: install -g fake-package"
 }
 
 @test "install npm-installs single package" {
@@ -36,7 +36,7 @@ load test_helper
   run nodenv default-packages install 10.0.0
 
   assert_success
-  assert_output -p "npm invoked with: 'install -g fake-package'"
+  assert_output -p "npm invoked with: install -g fake-package"
 }
 
 @test "install handles packages with scopes" {
@@ -51,10 +51,10 @@ PKGS
   run nodenv default-packages install 10.0.0
 
   assert_success
-  assert_output -p "npm invoked with: 'install -g @fake/pkg1'"
-  assert_output -p "npm invoked with: 'install -g @fake/pkg2@~1.2.3'"
-  assert_output -p "npm invoked with: 'install -g pkg3'"
-  assert_output -p "npm invoked with: 'install -g pkg4@>= 0.9.0 < 0.10.0'"
+  assert_output -p "npm invoked with: install -g @fake/pkg1"
+  assert_output -p "npm invoked with: install -g @fake/pkg2@~1.2.3"
+  assert_output -p "npm invoked with: install -g pkg3"
+  assert_output -p "npm invoked with: install -g pkg4@>= 0.9.0 < 0.10.0"
 }
 
 @test "install combines all default-packages files" {
@@ -67,10 +67,10 @@ PKGS
   XDG_CONFIG_DIRS="$HOME/myconfig:$HOME/theirconfig" NODENV_VERSION=10.0.0 run nodenv default-packages install
 
   assert_success
-  assert_output -p "npm invoked with: 'install -g pkg-from-nodenv-root'"
-  assert_output -p "npm invoked with: 'install -g pkg-from-config-home'"
-  assert_output -p "npm invoked with: 'install -g pkg-from-config-dirs1'"
-  assert_output -p "npm invoked with: 'install -g pkg-from-config-dirs2'"
+  assert_output -p "npm invoked with: install -g pkg-from-nodenv-root"
+  assert_output -p "npm invoked with: install -g pkg-from-config-home"
+  assert_output -p "npm invoked with: install -g pkg-from-config-dirs1"
+  assert_output -p "npm invoked with: install -g pkg-from-config-dirs2"
 }
 
 @test "install handles filenames with spaces" {
@@ -81,6 +81,6 @@ PKGS
   XDG_CONFIG_DIRS="$HOME/my config:$HOME/their config" NODENV_VERSION=10.0.0 run nodenv default-packages install
 
   assert_success
-  assert_output -p "npm invoked with: 'install -g pkg-from-config-dirs1'"
-  assert_output -p "npm invoked with: 'install -g pkg-from-config-dirs2'"
+  assert_output -p "npm invoked with: install -g pkg-from-config-dirs1"
+  assert_output -p "npm invoked with: install -g pkg-from-config-dirs2"
 }
