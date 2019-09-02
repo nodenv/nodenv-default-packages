@@ -15,8 +15,7 @@ load test_helper
 
 @test "overwrites old installation" {
   cd "$BATS_TMPDIR"
-  mkdir -p etc/nodenv.d/install
-  touch etc/nodenv.d/install/default-packages.bash
+  with_file etc/nodenv.d/install/default-packages.bash <<<""
 
   PREFIX="$PWD" run "${BATS_TEST_DIRNAME}/../install.sh"
   assert_success
