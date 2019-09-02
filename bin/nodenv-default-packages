@@ -40,14 +40,16 @@ for_versions() {
 
 # Read package names and versions from $NODENV_ROOT/default-packages
 list_default_packages() {
-  local file
-  file=$(default_packages_file)
+  local -a files
+  while read -r; do files+=( "$REPLY" ); done < <(default_packages_file)
+
+  [ ${#files[@]} -gt 0 ] || return
+
 
   local pkg_name pkg_version
 
-  # strip comments and empty lines
-  sed -e 's/#.*$//g' -e '/^[[:space:]]*$/d' "$file" |
-
+  cat "${files[@]}" |
+  sed -e 's/#.*$//g' -e '/^[[:space:]]*$/d' | # strip comments and empty lines
   while IFS=" " read -r pkg_name pkg_version; do
     echo "${pkg_name}${pkg_version:+@$pkg_version}"
   done
@@ -84,7 +86,7 @@ default_packages_file() {
 
   for dir in "$NODENV_ROOT" "${xdg_dirs[@]/%//nodenv}"; do
     if test -r "$dir/default-packages"; then
-      echo "$_" && file_found=1
+      echo "$_" && file_found=true
     fi
   done
 
