@@ -39,6 +39,24 @@ load test_helper
   assert_output -p "npm invoked with: 'install -g fake-package'"
 }
 
+@test "install handles packages with scopes" {
+  nodenv install --no-hooks 10.0.0
+  with_file "$NODENV_ROOT/default-packages" <<-PKGS
+	@fake/pkg1
+	@fake/pkg2 ~1.2.3
+	pkg3
+	pkg4 >= 0.9.0 < 0.10.0
+PKGS
+
+  run nodenv default-packages install 10.0.0
+
+  assert_success
+  assert_output -p "npm invoked with: 'install -g @fake/pkg1'"
+  assert_output -p "npm invoked with: 'install -g @fake/pkg2@~1.2.3'"
+  assert_output -p "npm invoked with: 'install -g pkg3'"
+  assert_output -p "npm invoked with: 'install -g pkg4@>= 0.9.0 < 0.10.0'"
+}
+
 @test "install combines all default-packages files" {
   nodenv install --no-hooks 10.0.0
   with_file "$NODENV_ROOT/default-packages" <<< pkg-from-nodenv-root
