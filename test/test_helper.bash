@@ -46,7 +46,7 @@ teardown() {
   rm -rf "$BATS_TMPDIR" # same as BATS_MOCK_TMPDIR
 }
 
-with_default_packages_file() {
-  touch "$NODENV_ROOT/default-packages"
-  cat - >> "$NODENV_ROOT/default-packages"
+with_file() {
+  mkdir -p "$(dirname "$1")"
+  cat - > "$1"
 }

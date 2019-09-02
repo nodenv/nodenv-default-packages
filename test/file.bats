@@ -10,7 +10,7 @@ load test_helper
 }
 
 @test "file finds default-packages in NODENV_ROOT" {
-  with_default_packages_file <<< fake-package
+  with_file "$NODENV_ROOT/default-packages" <<< fake-package
 
   run nodenv default-packages file
 
@@ -19,7 +19,7 @@ load test_helper
 }
 
 @test "file finds default-packages in default XDG_CONFIG_HOME" {
-  cat > $HOME/.config/nodenv/default-packages <<< fake-package
+  with_file $HOME/.config/nodenv/default-packages <<< fake-package
 
   run nodenv default-packages file
 
@@ -29,8 +29,7 @@ load test_helper
 
 @test "file finds default-packages in configured XDG_CONFIG_HOME" {
   XDG_CONFIG_HOME=$HOME/myconfig
-  mkdir -p $XDG_CONFIG_HOME/nodenv
-  cat > $XDG_CONFIG_HOME/nodenv/default-packages <<< fake-package
+  with_file $XDG_CONFIG_HOME/nodenv/default-packages <<< fake-package
 
   XDG_CONFIG_HOME=$XDG_CONFIG_HOME run nodenv default-packages file
 
@@ -39,8 +38,7 @@ load test_helper
 }
 
 @test "file finds default-packages in configured XDG_CONFIG_DIRS" {
-  mkdir -p $HOME/myconfig/nodenv
-  cat > $HOME/myconfig/nodenv/default-packages <<< fake-package
+  with_file $HOME/myconfig/nodenv/default-packages <<< fake-package
 
   XDG_CONFIG_DIRS=$HOME/myconfig:other run nodenv default-packages file
 

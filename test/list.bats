@@ -10,7 +10,7 @@ load test_helper
 }
 
 @test "list default-packages" {
-  with_default_packages_file <<< fake-package
+  with_file "$NODENV_ROOT/default-packages" <<< fake-package
 
   run nodenv default-packages list
 
@@ -19,7 +19,7 @@ load test_helper
 }
 
 @test "list skips comments and empty lines" {
-  with_default_packages_file <<-PKGS
+  with_file "$NODENV_ROOT/default-packages" <<-PKGS
   fake-package
 
   # comment

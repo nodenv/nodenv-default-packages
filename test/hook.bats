@@ -3,7 +3,7 @@
 load test_helper
 
 @test "nodenv-install hook auto installs packages" {
-  with_default_packages_file <<< fake-package
+  with_file "$NODENV_ROOT/default-packages" <<< fake-package
 
   run nodenv install 0.10.36
 
