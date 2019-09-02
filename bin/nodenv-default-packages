@@ -68,7 +68,7 @@ default_packages_files() {
 
   if [ -z "${file_found:-}" ]; then
     echo "nodenv: default-packages file not found" >&2
-    return 1
+    exit 1
   fi
 }
 
