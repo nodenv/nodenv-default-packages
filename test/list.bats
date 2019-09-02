@@ -49,9 +49,28 @@ PKGS
   assert_success
   assert_output - <<-OUT
 	@fake/pkg1
-	@fake/pkg2@~1.2.3
+	@fake/pkg2@'~1.2.3'
 	pkg3
-	pkg4@>= 0.9.0 < 0.10.0
+	pkg4@'>= 0.9.0 < 0.10.0'
+OUT
+}
+
+@test "list wraps version spec in quotes" {
+  with_file "$NODENV_ROOT/default-packages" <<-PKGS
+	@fake/pkg1
+	@fake/pkg2 ~1.2.3
+	pkg3
+	pkg4 >= 0.9.0 < 0.10.0
+PKGS
+
+  run nodenv default-packages list
+
+  assert_success
+  assert_output - <<-OUT
+	@fake/pkg1
+	@fake/pkg2@'~1.2.3'
+	pkg3
+	pkg4@'>= 0.9.0 < 0.10.0'
 OUT
 }
 

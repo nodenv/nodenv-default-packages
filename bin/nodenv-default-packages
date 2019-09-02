@@ -45,7 +45,8 @@ list_default_packages() {
   tr '\n' '\0' | # replace newlines with nullchar so we can use xargs
   xargs -0 sed -e 's/#.*$//g' -e '/^[[:space:]]*$/d' | # strip comments and empty lines
   while IFS=" " read -r pkg_name pkg_version; do
-    echo "${pkg_name}${pkg_version:+@$pkg_version}"
+    # shellcheck disable=SC2016
+    echo "${pkg_name}${pkg_version:+@'$pkg_version'}"
   done
 }
 
