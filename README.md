@@ -44,9 +44,9 @@ $ brew install --HEAD nodenv/nodenv/nodenv-default-packages
 
 ## Usage
 
-nodenv-default-packages automatically installs the packages listed in the `$(nodenv root)/default-packages` file every time you successfully install a new version of Node with `nodenv install`.
+nodenv-default-packages automatically installs the packages listed in the [default-packages file(s)](#default-packages-files) file every time you successfully install a new version of Node with `nodenv install`.
 
-Specify packages in `$(nodenv root)/default-packages` by name, one per line.
+Specify packages in `default-packages` by name, one per line.
 You may optionally specify a semver version spec after the name. For example:
 
     grunt-cli
@@ -55,11 +55,17 @@ You may optionally specify a semver version spec after the name. For example:
 
 Blank lines and lines beginning with a `#` are ignored.
 
+### default-packages Files
+
+nodenv-default-packages reads from `$(nodenv root)/default-packages` as well as `nodenv/default-packages` under all [XDG config directories][xdg].
+The XDG config directories searched are `$XDG_CONFIG_HOME` (`$HOME/.config` if unset/empty) and all colon-separated `$XDG_CONFIG_DIRS` (`/etc/xdg` if unset/empty).
+
 ### Updating Default Packages
 
 if you update your `$(nodenv root)/default-packages` and want to refresh some or all of your existing node installations you can use commands like this:
 
     nodenv default-packages install 8.8.1   # Reinstall default packages on Node version 8.8.1
+
     nodenv default-packages install --all   # Reinstall default packages on _all_ installed Node versions
 
 *NOTE:* This may take some time.
@@ -72,3 +78,4 @@ Forked from [Sam Stephenson][sstephenson]'s [rbenv-default-gems][] by [Josh Hagi
 [rbenv-default-gems]: https://github.com/rbenv/rbenv-default-gems
 [jawshooah]: https://github.com/jawshooah
 [nodenv]: https://github.com/nodenv/nodenv
+[xdg]: https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
