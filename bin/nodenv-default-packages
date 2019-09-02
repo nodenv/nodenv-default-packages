@@ -7,7 +7,7 @@
 # Usage:
 #   nodenv default-packages list
 #   nodenv default-packages install [ --all | <version>...]
-#   nodenv default-packages file
+#   nodenv default-packages files
 #
 
 set -eo pipefail
@@ -15,6 +15,7 @@ set -eo pipefail
 
 # Provide nodenv completions
 if [ "$1" = --complete ]; then
+  echo files
   echo install
   echo list
   echo --all
@@ -41,7 +42,7 @@ for_versions() {
 # Read package names and versions from $NODENV_ROOT/default-packages
 list_default_packages() {
   local -a files
-  while read -r; do files+=( "$REPLY" ); done < <(default_packages_file)
+  while read -r; do files+=( "$REPLY" ); done < <(default_packages_files)
 
   [ ${#files[@]} -gt 0 ] || return
 
@@ -79,7 +80,7 @@ install_default_packages() {
   }
 }
 
-default_packages_file() {
+default_packages_files() {
   local file_found
 
   IFS=: read -ra xdg_dirs <<< "${XDG_CONFIG_HOME:-$HOME/.config}:${XDG_CONFIG_DIRS:-/etc/xdg}"
@@ -103,7 +104,7 @@ case "$1" in
 
   list ) list_default_packages ;;
 
-  file ) default_packages_file ;;
+  files ) default_packages_files ;;
 
   -h | --help ) nodenv-help ;;
 
