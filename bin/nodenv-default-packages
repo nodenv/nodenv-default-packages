@@ -41,14 +41,9 @@ for_versions() {
 
 # Read package names and versions from $NODENV_ROOT/default-packages
 list_default_packages() {
-  local -a files
-  while read -r; do files+=( "$REPLY" ); done < <(default_packages_files)
-  [ ${#files[@]} -gt 0 ] || return
-
-  local pkg_name pkg_version
-
-  cat "${files[@]}" |
-  sed -e 's/#.*$//g' -e '/^[[:space:]]*$/d' | # strip comments and empty lines
+  default_packages_files |
+  tr '\n' '\0' | # replace newlines with nullchar so we can use xargs
+  xargs -0 sed -e 's/#.*$//g' -e '/^[[:space:]]*$/d' | # strip comments and empty lines
   while IFS=" " read -r pkg_name pkg_version; do
     echo "${pkg_name}${pkg_version:+@$pkg_version}"
   done
