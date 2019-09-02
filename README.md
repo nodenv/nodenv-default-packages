@@ -13,6 +13,7 @@ Forked from the excellent [`rbenv-default-gems`][rbenv-default-gems] plugin from
   * [Installing as a nodenv plugin](#installing-as-a-nodenv-plugin)
   * [Installing with Homebrew (for OS X users)](#installing-with-homebrew-for-os-x-users)
 - [Usage](#usage)
+  * [default-packages Files](#default-packages-files)
   * [Updating Default Packages](#updating-default-packages)
 - [Credits](#credits)
 
