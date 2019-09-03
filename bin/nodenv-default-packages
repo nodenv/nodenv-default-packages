@@ -22,6 +22,14 @@ if [ "$1" = --complete ]; then
   exit
 fi
 
+# GNU xargs requires -r flag for skip-if-empty behavior
+# BSD xargs does this by default (but doesn't accept -r option)
+if xargs --version 2>&1 | grep -q GNU; then
+  xargs() {
+    command xargs -r "$@"
+  }
+fi
+
 versions() {
   case "$1" in
     "")    nodenv-version-name                   ;; # list active version
