@@ -22,6 +22,14 @@ if [ "$1" = --complete ]; then
   exit
 fi
 
+# GNU xargs requires -r flag for skip-if-empty behavior
+# BSD xargs does this by default (but doesn't accept -r option)
+if xargs --version 2>&1 | grep -q GNU; then
+  xargs() {
+    command xargs -r "$@"
+  }
+fi
+
 versions() {
   case "$1" in
     "")    nodenv-version-name                   ;; # list active version
@@ -50,28 +58,9 @@ list_default_packages() {
   done
 }
 
-npm_install() {
-  local node_version=$1
-  local package=$2
-
-  NODENV_VERSION="$node_version" nodenv-exec npm install -g "$package"
-}
-
 install_default_packages() {
-  local node_version="$1"
-  shift
-
-  local package
-
   list_default_packages |
-  {
-    local error
-    while read -r package; do
-      npm_install "$node_version" "$package" || error=true
-    done
-
-    [ -z "$error" ] || exit 1
-  }
+  NODENV_VERSION="$1" xargs nodenv-exec npm install -g
 }
 
 default_packages_files() {
@@ -87,7 +76,7 @@ default_packages_files() {
 
   if [ -z "${file_found:-}" ]; then
     echo "nodenv: default-packages file not found" >&2
-    return 1
+    exit 1
   fi
 }
 
