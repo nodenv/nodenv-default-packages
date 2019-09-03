@@ -12,7 +12,7 @@ load test_helper
 Sourcing .*/etc/nodenv.d/install/default-packages.bash
 Installed fake node into $NODENV_ROOT/versions/0.10.36
 Executing after_install hooks.
-npm invoked with: 'install -g fake-package'
+npm invoked with: install -g fake-package
 Installed default packages for 0.10.36
 OUT
 }
