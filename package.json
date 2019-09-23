@@ -1,6 +1,6 @@
 {
   "name": "@nodenv/nodenv-default-packages",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Install default packages every time you install a new version of Node",
   "homepage": "https://github.com/nodenv/nodenv-default-packages#readme",
   "license": "MIT",
