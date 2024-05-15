@@ -39,7 +39,7 @@
     "@nodenv/nodenv": "^1.4.1",
     "bats": "^1.11.0",
     "bats-assert": "jasonkarns/bats-assert-1",
-    "bats-mock": "^1.0.1",
+    "bats-mock": "^1.1.0",
     "bats-support": "jasonkarns/bats-support",
     "brew-publish": "^2.3.1",
     "shellcheck": "^0.4.4"
