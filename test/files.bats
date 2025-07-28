@@ -59,10 +59,10 @@ load test_helper
   XDG_CONFIG_DIRS="$HOME/myconfig:$HOME/theirconfig" run nodenv default-packages files
 
   assert_success
-  assert_output - <<-OUT
-	$NODENV_ROOT/default-packages
-	$HOME/.config/nodenv/default-packages
-	$HOME/myconfig/nodenv/default-packages
-	$HOME/theirconfig/nodenv/default-packages
+  assert_output - <<OUT
+$NODENV_ROOT/default-packages
+$HOME/.config/nodenv/default-packages
+$HOME/myconfig/nodenv/default-packages
+$HOME/theirconfig/nodenv/default-packages
 OUT
 }

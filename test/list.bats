@@ -19,58 +19,58 @@ load test_helper
 }
 
 @test "list skips comments and empty lines" {
-  with_file "$NODENV_ROOT/default-packages" <<-PKGS
-  fake-package
+  with_file "$NODENV_ROOT/default-packages" <<PKGS
+fake-package
 
-  # comment
+# comment
 
-  another-package
+another-package
 PKGS
 
   run nodenv default-packages list
 
   assert_success
-  assert_output - <<-OUT
+  assert_output - <<OUT
 fake-package
 another-package
 OUT
 }
 
 @test "list handles packages with scopes" {
-  with_file "$NODENV_ROOT/default-packages" <<-PKGS
-	@fake/pkg1
-	@fake/pkg2 ~1.2.3
-	pkg3
-	pkg4 >= 0.9.0 < 0.10.0
+  with_file "$NODENV_ROOT/default-packages" <<PKGS
+@fake/pkg1
+@fake/pkg2 ~1.2.3
+pkg3
+pkg4 >= 0.9.0 < 0.10.0
 PKGS
 
   run nodenv default-packages list
 
   assert_success
-  assert_output - <<-OUT
-	@fake/pkg1
-	@fake/pkg2@'~1.2.3'
-	pkg3
-	pkg4@'>= 0.9.0 < 0.10.0'
+  assert_output - <<OUT
+@fake/pkg1
+@fake/pkg2@'~1.2.3'
+pkg3
+pkg4@'>= 0.9.0 < 0.10.0'
 OUT
 }
 
 @test "list wraps version spec in quotes" {
-  with_file "$NODENV_ROOT/default-packages" <<-PKGS
-	@fake/pkg1
-	@fake/pkg2 ~1.2.3
-	pkg3
-	pkg4 >= 0.9.0 < 0.10.0
+  with_file "$NODENV_ROOT/default-packages" <<PKGS
+@fake/pkg1
+@fake/pkg2 ~1.2.3
+pkg3
+pkg4 >= 0.9.0 < 0.10.0
 PKGS
 
   run nodenv default-packages list
 
   assert_success
-  assert_output - <<-OUT
-	@fake/pkg1
-	@fake/pkg2@'~1.2.3'
-	pkg3
-	pkg4@'>= 0.9.0 < 0.10.0'
+  assert_output - <<OUT
+@fake/pkg1
+@fake/pkg2@'~1.2.3'
+pkg3
+pkg4@'>= 0.9.0 < 0.10.0'
 OUT
 }
 
@@ -83,11 +83,11 @@ OUT
   XDG_CONFIG_DIRS="$HOME/myconfig:$HOME/theirconfig" run nodenv default-packages list
 
   assert_success
-  assert_output - <<-OUT
-	pkg-from-nodenv-root
-	pkg-from-config-home
-	pkg-from-config-dirs1
-	pkg-from-config-dirs2
+  assert_output - <<OUT
+pkg-from-nodenv-root
+pkg-from-config-home
+pkg-from-config-dirs1
+pkg-from-config-dirs2
 OUT
 }
 
@@ -98,8 +98,8 @@ OUT
   XDG_CONFIG_DIRS="$HOME/my config:$HOME/their config" run nodenv default-packages list
 
   assert_success
-  assert_output - <<-OUT
-	pkg-from-config-dirs1
-	pkg-from-config-dirs2
+  assert_output - <<OUT
+pkg-from-config-dirs1
+pkg-from-config-dirs2
 OUT
 }

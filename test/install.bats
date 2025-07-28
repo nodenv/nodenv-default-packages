@@ -41,9 +41,9 @@ load test_helper
 
 @test "install npm-installs multiple packages in one command" {
   nodenv install --no-hooks 10.0.0
-  with_file "$NODENV_ROOT/default-packages" <<-PKGS
-	pkg1
-	pkg2
+  with_file "$NODENV_ROOT/default-packages" <<PKGS
+pkg1
+pkg2
 PKGS
 
   run nodenv default-packages install 10.0.0
