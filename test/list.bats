@@ -10,7 +10,7 @@ load test_helper
 }
 
 @test "list default-packages" {
-  with_file "$NODENV_ROOT/default-packages" <<< fake-package
+  with_file "$NODENV_ROOT/default-packages" <<<fake-package
 
   run nodenv default-packages list
 
@@ -75,10 +75,10 @@ OUT
 }
 
 @test "list combines all default-packages files" {
-  with_file "$NODENV_ROOT/default-packages" <<< pkg-from-nodenv-root
-  with_file "$HOME/.config/nodenv/default-packages" <<< pkg-from-config-home
-  with_file "$HOME/myconfig/nodenv/default-packages" <<< pkg-from-config-dirs1
-  with_file "$HOME/theirconfig/nodenv/default-packages" <<< pkg-from-config-dirs2
+  with_file "$NODENV_ROOT/default-packages" <<<pkg-from-nodenv-root
+  with_file "$HOME/.config/nodenv/default-packages" <<<pkg-from-config-home
+  with_file "$HOME/myconfig/nodenv/default-packages" <<<pkg-from-config-dirs1
+  with_file "$HOME/theirconfig/nodenv/default-packages" <<<pkg-from-config-dirs2
 
   XDG_CONFIG_DIRS="$HOME/myconfig:$HOME/theirconfig" run nodenv default-packages list
 
@@ -92,8 +92,8 @@ OUT
 }
 
 @test "list handles filenames with spaces" {
-  with_file "$HOME/my config/nodenv/default-packages" <<< pkg-from-config-dirs1
-  with_file "$HOME/their config/nodenv/default-packages" <<< pkg-from-config-dirs2
+  with_file "$HOME/my config/nodenv/default-packages" <<<pkg-from-config-dirs1
+  with_file "$HOME/their config/nodenv/default-packages" <<<pkg-from-config-dirs2
 
   XDG_CONFIG_DIRS="$HOME/my config:$HOME/their config" run nodenv default-packages list
 

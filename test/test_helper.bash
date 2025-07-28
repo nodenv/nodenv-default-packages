@@ -26,8 +26,6 @@ setup() {
   local core_path="/usr/bin:/bin:/usr/sbin:/sbin"
   export PATH="$BATS_MOCK_BINDIR:$test_bin:$package_bin:$node_modules_bin:$core_path"
 
-
-
   # custom setup
 
   mkdir -p "$BATS_TMPDIR"
@@ -48,5 +46,5 @@ teardown() {
 
 with_file() {
   mkdir -p "$(dirname "$1")"
-  cat - > "$1"
+  cat - >"$1"
 }
