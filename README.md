@@ -12,11 +12,11 @@ Forked from the excellent [`rbenv-default-gems`][rbenv-default-gems] plugin from
 <!-- toc -->
 
 - [Installation](#installation)
-  * [Installing as a nodenv plugin](#installing-as-a-nodenv-plugin)
-  * [Installing with Homebrew (for OS X users)](#installing-with-homebrew-for-os-x-users)
+  - [Installing as a nodenv plugin](#installing-as-a-nodenv-plugin)
+  - [Installing with Homebrew (for OS X users)](#installing-with-homebrew-for-os-x-users)
 - [Usage](#usage)
-  * [default-packages Files](#default-packages-files)
-  * [Updating Default Packages](#updating-default-packages)
+  - [default-packages Files](#default-packages-files)
+  - [Updating Default Packages](#updating-default-packages)
 - [Credits](#credits)
 
 <!-- tocstop -->
@@ -33,7 +33,7 @@ Make sure you have the latest nodenv and node-build versions, then run:
 
 Mac OS X users can install nodenv-default-packages with the [Homebrew](http://brew.sh) package manager.
 
-*This is the recommended method of installation if you installed nodenv with Homebrew.*
+_This is the recommended method of installation if you installed nodenv with Homebrew._
 
 ```
 $ brew install nodenv/nodenv/nodenv-default-packages
@@ -71,7 +71,7 @@ if you update your `$(nodenv root)/default-packages` and want to refresh some or
 
     nodenv default-packages install --all   # Reinstall default packages on _all_ installed Node versions
 
-*NOTE:* This may take some time.
+_NOTE:_ This may take some time.
 
 ## Credits
 
