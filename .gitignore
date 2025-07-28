@@ -1,3 +1,6 @@
 /node_modules
-/nodenv-nodenv-default-packages-*.tgz
+/package*/
+/tmp
 /test/tmp
+
+/nodenv-nodenv-default-packages-*.tgz

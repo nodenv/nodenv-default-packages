@@ -12,11 +12,11 @@ Forked from the excellent [`rbenv-default-gems`][rbenv-default-gems] plugin from
 <!-- toc -->
 
 - [Installation](#installation)
-  * [Installing as a nodenv plugin](#installing-as-a-nodenv-plugin)
-  * [Installing with Homebrew (for OS X users)](#installing-with-homebrew-for-os-x-users)
+  - [Installing as a nodenv plugin](#installing-as-a-nodenv-plugin)
+  - [Installing with Homebrew (for macOS users)](#installing-with-homebrew-for-macos-users)
 - [Usage](#usage)
-  * [default-packages Files](#default-packages-files)
-  * [Updating Default Packages](#updating-default-packages)
+  - [default-packages Files](#default-packages-files)
+  - [Updating Default Packages](#updating-default-packages)
 - [Credits](#credits)
 
 <!-- tocstop -->
@@ -27,22 +27,24 @@ Forked from the excellent [`rbenv-default-gems`][rbenv-default-gems] plugin from
 
 Make sure you have the latest nodenv and node-build versions, then run:
 
-    git clone https://github.com/nodenv/nodenv-default-packages.git $(nodenv root)/plugins/nodenv-default-packages
-
-### Installing with Homebrew (for OS X users)
-
-Mac OS X users can install nodenv-default-packages with the [Homebrew](http://brew.sh) package manager.
-
-*This is the recommended method of installation if you installed nodenv with Homebrew.*
-
+```sh
+git clone https://github.com/nodenv/nodenv-default-packages.git $(nodenv root)/plugins/nodenv-default-packages
 ```
-$ brew install nodenv/nodenv/nodenv-default-packages
+
+### Installing with Homebrew (for macOS users)
+
+MacOS users can install nodenv-default-packages with the [Homebrew](http://brew.sh) package manager.
+
+_This is the recommended method of installation if you installed nodenv with Homebrew._
+
+```sh
+brew install nodenv/nodenv/nodenv-default-packages
 ```
 
 Or, if you would like to install the latest development release:
 
-```
-$ brew install --HEAD nodenv/nodenv/nodenv-default-packages
+```sh
+brew install --HEAD nodenv/nodenv/nodenv-default-packages
 ```
 
 ## Usage
@@ -50,13 +52,15 @@ $ brew install --HEAD nodenv/nodenv/nodenv-default-packages
 nodenv-default-packages automatically installs the packages listed in the [default-packages file(s)](#default-packages-files) file every time you successfully install a new version of Node with `nodenv install`.
 
 Specify packages in `default-packages` by name, one per line.
-You may optionally specify a semver version spec after the name. For example:
+You may optionally specify a SemVer version spec after the name. For example:
 
-    grunt-cli
-    jshint ~2.6.3
-    csslint >= 0.9.0 < 0.10.0
+```txt
+grunt-cli
+jshint ~2.6.3
+csslint >= 0.9.0 < 0.10.0
+```
 
-Blank lines and lines beginning with a `#` are ignored.
+Empty lines and lines beginning with a `#` are ignored.
 
 ### default-packages Files
 
@@ -67,11 +71,16 @@ The XDG config directories searched are `$XDG_CONFIG_HOME` (`$HOME/.config` if u
 
 if you update your `$(nodenv root)/default-packages` and want to refresh some or all of your existing node installations you can use commands like this:
 
-    nodenv default-packages install 8.8.1   # Reinstall default packages on Node version 8.8.1
+```sh
+nodenv default-packages install 8.8.1   # Reinstall default packages on Node version 8.8.1
+```
 
-    nodenv default-packages install --all   # Reinstall default packages on _all_ installed Node versions
+```sh
+nodenv default-packages install --all   # Reinstall default packages on _all_ installed Node versions
+```
 
-*NOTE:* This may take some time.
+> [!NOTE]
+> This may take some time.
 
 ## Credits
 

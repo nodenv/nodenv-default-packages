@@ -30,24 +30,24 @@ else
 fi
 
 case "$1" in
-  *[0-9].*)
-    STATUS=0
-    VERSION_NAME=$1
-    d="$NODENV_ROOT/versions/$VERSION_NAME"
-    mkdir -p "$d/bin"
-    echo "echo \"npm invoked with: \$@\"" > "$d/bin/npm"
-    chmod a+x "$d/bin/npm"
-    echo "Installed fake node into $d"
-    ;;
-  --fail)
-    STATUS=1
-    VERSION_NAME=$2
-    echo "Failed installation of $2"
-    ;;
-  *)
-    nodenv-help --usage install >&2
-    exit 1
-    ;;
+*[0-9].*)
+  STATUS=0
+  VERSION_NAME=$1
+  d="$NODENV_ROOT/versions/$VERSION_NAME"
+  mkdir -p "$d/bin"
+  echo "echo \"npm invoked with: \$@\"" >"$d/bin/npm"
+  chmod a+x "$d/bin/npm"
+  echo "Installed fake node into $d"
+  ;;
+--fail)
+  STATUS=1
+  VERSION_NAME=$2
+  echo "Failed installation of $2"
+  ;;
+*)
+  nodenv-help --usage install >&2
+  exit 1
+  ;;
 esac
 
 if [ -z "$skip_hooks" ]; then

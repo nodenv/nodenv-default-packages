@@ -32,9 +32,9 @@ fi
 
 versions() {
   case "$1" in
-    "")    nodenv-version-name                   ;; # list active version
-    --all) nodenv-versions --skip-aliases --bare ;; # list all installed versions
-    *)     echo "$@"                             ;; # list specified versions
+  "") nodenv-version-name ;;                      # list active version
+  --all) nodenv-versions --skip-aliases --bare ;; # list all installed versions
+  *) echo "$@" ;;                                 # list specified versions
   esac
 }
 
@@ -50,23 +50,23 @@ for_versions() {
 # Read package names and versions from $NODENV_ROOT/default-packages
 list_default_packages() {
   default_packages_files |
-  tr '\n' '\0' | # replace newlines with nullchar so we can use xargs
-  xargs -0 sed -e 's/#.*$//g' -e '/^[[:space:]]*$/d' | # strip comments and empty lines
-  while IFS=" " read -r pkg_name pkg_version; do
-    # shellcheck disable=SC2016
-    echo "${pkg_name}${pkg_version:+@'$pkg_version'}"
-  done
+    tr '\n' '\0' |                                       # replace newlines with nullchar so we can use xargs
+    xargs -0 sed -e 's/#.*$//g' -e '/^[[:space:]]*$/d' | # strip comments and empty lines
+    while IFS=" " read -r pkg_name pkg_version; do
+      # shellcheck disable=SC2016
+      echo "${pkg_name}${pkg_version:+@'$pkg_version'}"
+    done
 }
 
 install_default_packages() {
   list_default_packages |
-  NODENV_VERSION="$1" xargs nodenv-exec npm install -g
+    NODENV_VERSION="$1" xargs nodenv-exec npm install -g
 }
 
 default_packages_files() {
   local file_found
 
-  IFS=: read -ra xdg_dirs <<< "${XDG_CONFIG_HOME:-$HOME/.config}:${XDG_CONFIG_DIRS:-/etc/xdg}"
+  IFS=: read -ra xdg_dirs <<<"${XDG_CONFIG_HOME:-$HOME/.config}:${XDG_CONFIG_DIRS:-/etc/xdg}"
 
   for dir in "$NODENV_ROOT" "${xdg_dirs[@]/%//nodenv}"; do
     if test -r "$dir/default-packages"; then
@@ -83,13 +83,16 @@ default_packages_files() {
 unset cmd
 
 case "$1" in
-  install ) for_versions install_default_packages "${@:2}" ;;
+install) for_versions install_default_packages "${@:2}" ;;
 
-  list ) list_default_packages ;;
+list) list_default_packages ;;
 
-  files ) default_packages_files ;;
+files) default_packages_files ;;
 
-  -h | --help ) nodenv-help ;;
+-h | --help) nodenv-help ;;
 
-  *) nodenv-help --usage default-packages; exit 1 ;;
+*)
+  nodenv-help --usage default-packages
+  exit 1
+  ;;
 esac
