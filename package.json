@@ -5,7 +5,7 @@
   "homepage": "https://github.com/nodenv/nodenv-default-packages#readme",
   "license": "MIT",
   "contributors": [
-    "Jason Karns <jason@karns.name> (http://jason.karns.name)",
+    "Jason Karns <jason.karns@gmail.com> (http://jasonkarns.com)",
     "Josh Hagins <hagins.josh@gmail.com>",
     "Sam Stephenson <sstephenson@gmail.com> (http://sstephenson.us)"
   ],
@@ -29,7 +29,7 @@
     "start": "bin/nodenv-default-packages",
     "test": "bats ${CI:+--tap} test",
     "posttest": "npm run lint",
-    "lint": "git ls-files bin etc **/*.*sh | xargs shellcheck",
+    "lint": "git ls-files bin etc script */*.*sh | xargs shellcheck",
     "postversion": "npm publish",
     "prepublishOnly": "npm run publish:github && npm run publish:brew",
     "publish:brew": "brew-publish",
