@@ -1,6 +1,6 @@
 # nodenv-default-packages
 
-Install a set of npm packages every time you install a new version of Node
+A [nodenv][] plugin that installs a set of npm packages every time you install a new version of Node.
 
 [![Tests](https://img.shields.io/github/actions/workflow/status/nodenv/nodenv-default-packages/test.yml?label=tests&logo=github)](https://github.com/nodenv/nodenv-default-packages/actions/workflows/test.yml)
 [![Latest GitHub Release](https://img.shields.io/github/v/release/nodenv/nodenv-default-packages?label=github&logo=github&sort=semver)](https://github.com/nodenv/nodenv-default-packages/releases/latest)
