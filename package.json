@@ -1,6 +1,6 @@
 {
   "name": "@nodenv/nodenv-default-packages",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A nodenv plugin that installs a set of npm packages every time you install a new version of Node.",
   "homepage": "https://github.com/nodenv/nodenv-default-packages#readme",
   "license": "MIT",
